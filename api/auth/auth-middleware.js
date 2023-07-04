@@ -70,10 +70,10 @@ try {
       user.password
     );
     if (isPassworMatch) {
-      req.dbUser = user ;
+      req.user = user ;
       next();
     } else {
-      res.status(401).json({message: "Geçersiz kriter"})
+      res.status(404).json({message: "Geçersiz kriter"})
     }
 
   }
@@ -99,6 +99,8 @@ try {
     res.status(422).json({message: "Şifre 3 karakterden fazla olmalı"})
     
   } else {
+    const hashedPassword = bcrypt.hashSync(password,HASH_ROUND)
+    req.hashedPassword = hashedPassword ;
     next();
   }
 } catch (error) {
@@ -106,7 +108,6 @@ try {
 }
 }
 module.exports = {
-  sifreGecerlimi,
   usernameVarmi,
   usernameBostami,
   sifreGecerlimi,

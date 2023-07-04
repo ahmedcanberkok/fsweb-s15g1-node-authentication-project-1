@@ -19,7 +19,7 @@ return db('users').where(filtre);
   verilen user_id li kullanıcıya çözümlenir, kullanıcı { user_id, username } içerir
  */
 function idyeGoreBul(user_id) {
-return db('users').where("user_id",user_id).first();
+return db('users').select('user_id','username').where({user_id:user_id}).first();
 }
 
 /**
